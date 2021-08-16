@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Researcher Checklist</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  
+  <link rel="stylesheet" href="./style.css">
+  <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
+</head>
+<body>
+<div class="header text-center col-md-12">
+    <h1>THE MACHINE LEARNING RESEARCHER CHECKLIST</h3> 
+    <p>
+      Doing research in Machine Learning is certainly very exciting but trying to keep up 
+      with the galloping changes in this field can mislead researchers into producing incomplete, inaccurate or sketchy papers. 
+      This checklist is based on Michael A. Lones paper titled <a href="https://arxiv.org/abs/2108.02497">"How to avoid machine learning pitfalls: a guide for academic researchers", arXiv:2108.02497, v1, August 2021</a>
+      and aims to help researchers verify that they have adequately conducted the writing of their research by validating it in terms 
+      of robustness, rigorousness, completeness and comparability.
+
+      </p>
+  </div>
+  
+<!-- partial:index.partial.html -->
+<svg viewBox="0 0 0 0" style="position: absolute; z-index: -1; opacity: 0;">
+  <defs>
+    <linearGradient id="boxGradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="25" y2="25">
+      <stop offset="0%"   stop-color="#27FDC7"/>
+      <stop offset="100%" stop-color="#0FC0F5"/>
+    </linearGradient>
+
+    <linearGradient id="lineGradient">
+      <stop offset="0%"    stop-color="#0FC0F5"/>
+      <stop offset="100%"  stop-color="#27FDC7"/>
+    </linearGradient>
+
+    <path id="todo__line" stroke="url(#lineGradient)" d="M21 12.3h168v0.1z"></path>
+    <path id="todo__box" stroke="url(#boxGradient)" d="M21 12.7v5c0 1.3-1 2.3-2.3 2.3H8.3C7 20 6 19 6 17.7V7.3C6 6 7 5 8.3 5h10.4C20 5 21 6 21 7.3v5.4"></path>
+    <path id="todo__check" stroke="url(#boxGradient)" d="M10 13l2 2 5-5"></path>
+    <circle id="todo__circle" cx="13.5" cy="12.5" r="10"></circle>
+  </defs>
+</svg>
+<div class="row" style="margin-right:0; margin-left:0">
+  <div class="col-md-8">
+  <div class="title text-center">
+    <h4>1. Before you start to build your model...</h4> 
+    <p>"It’s normal to want to rush into training and evaluating models, but it’s important to
+      take the time to think about the goals of a project, to fully understand the data that
+      will be used to support these goals, to consider any limitations of the data that need to
+      be addressed, and to understand what’s already been done in your field. If you don’t do
+      these things, then you may end up with results that are hard to publish, or models that
+      are not appropriate for their intended purpose." — Michael A. Lones, <a href="https://arxiv.org/pdf/2108.02497.pdf#page=3">Page 3</a>.
+      </p>
+  </div>
+  <div class="todo-list" id="start-list">
+      <label class="todo">
+        <input class="todo__state" type="checkbox" onchange="updateBars(this, [10,10,5,0])" />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+              <div class="todo__text col-md-11">Did you take the time to understand your data?</div> 
+              <div class="col-md-1">
+                <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"Eventually you will want to publish your
+                  work. This is a lot easier to do if your data is
+                  from a reliable source, has been collected using a reliable methodology, and is of good
+                  quality. For instance, if you are using data collected from an internet resource, make
+                  sure you know where it came from. Is it described in a paper? If so, take a look at the
+                  paper; make sure it was published somewhere reputable, and check whether the authors
+                  mention any limitations of the data. Do not assume that, because a data set has been
+                  used by a number of papers, it is of good quality — sometimes data is used just because
+                  it is easy to get hold of, and some widely used data sets are known to have significant
+                  limitations. If you train your model
+                  using bad data, then you will most likely generate a bad model: a process known as
+                  garbage in garbage out. So, always begin by making sure your data makes sense. Do
+                  some exploratory data analysis. Look for missing or
+                  inconsistent records. It is much easier to do this now, before you train a model, rather
+                  than later, when you’re trying to explain to reviewers why you used bad data." (Page 3)' 
+                  style="z-index:20000" data-trigger="hover" ></i>
+              </div>
+        </div>
+              
+      </label>
+
+      <label class="todo">
+
+        <input class="todo__state" type="checkbox" onchange="updateBars(this, [0,10,5,0])"  />
+
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+
+        <div class="row">
+            <div class="todo__text col-md-11">Did you analyzed the data without looking to the totality of them?</div>
+            <div class="col-md-1">
+              <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"As you look at data, it is quite likely that you will spot patterns and make insights
+                that guide your modelling. This is another good reason to look at data. However, it is
+                important that you do not make untestable assumptions that will later feed into your
+                model. The “untestable” bit is important here; it’s fine to make assumptions, but these
+                should only feed into the training of the model, not the testing. So, to ensure this is the
+                case, you should avoid looking closely at any test data in the initial exploratory analysis
+                stage. Otherwise you might, consciously or unconsciously, make assumptions that limit
+                the generality of your model in an untestable way. This is a theme I will return to several
+                times, since the leakage of information from the test set into the training process is a
+                common reason why ML models fail to generalise." (Page 3)' style="z-index:20000" data-trigger="hover" ></i>
+            </div>
+        </div>
+      </label>
+
+      <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [5,0,0,0])"  />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+          <div class="todo__text col-md-11">Did you make sure you have enough data?</div>
+          <div class="col-md-1">
+            <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"If you don’t have enough data, then it may not be possible to train a model that generalises. Working out whether this is the case can be challenging, and may not be evident
+              until you start building models: it all depends on the signal to noise ratio in the data set.
+              If the signal is strong, then you can get away with less data; if it’s weak, then you need
+              more data. If you can’t get more data — and this is a common issue in many research
+              fields — then you can make better use of existing data by using cross-validation. You can also use data augmentation techniques,
+              and these can be quite effective for boosting small data sets. Data augmentation is also useful in situations where
+              you have limited data in certain parts of your data set, e.g. in classification problems
+              where you have less samples in some classes than others — a situation known as class
+              imbalance. However, if you have limited data,
+              then it’s likely that you will also have to limit the complexity of the ML models you use,
+              since models with many parameters, like deep neural networks, can easily overfit small
+              data sets. Either way, it’s important to identify this issue early on, and come up with a
+              suitable (and defensible) strategy to mitigate it." (Page 3)
+              ' style="z-index:20000" data-trigger="hover" ></i>
+          </div>
+        </div>
+      </label>
+
+      <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [5,0,5,0])" />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+          <div class="todo__text col-md-11">Did you talk to domain experts?</div>
+          <div class="col-md-1">
+              <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"Domain experts can be very valuable. They can help you to understand which problems
+                  are useful to solve, they can help you choose the most appropriate feature set and ML
+                  model to use, and they can help you publish to the most appropriate audience. Failing
+                  to consider the opinion of domain experts can lead to projects which don’t solve useful
+                  problems, or which solve useful problems in inappropriate ways. An example of the
+                  latter is using an opaque ML model to solve a problem where there is a strong need
+                  to understand how the model reaches an outcome, e.g. in making medical or financial
+                  decisions. At the beginning of a project, domain experts can help you
+                  to understand the data, and point you towards features that are likely to be predictive.
+                  At the end of a project, they can help you to publish in domain-specific journals, and
+                  hence reach an audience that is most likely to benefit from your research." (Page 4)' style="z-index:20000" data-trigger="hover" ></i>
+            </div>
+          </div>
+      </label>
+      <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [10,5,5,15])" />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+          <div class="todo__text col-md-11">Did you survey the literature?</div>
+          <div class="col-md-1">
+              <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"You’re probably not the first person to throw ML at a particular problem domain, so
+                it’s important to understand what has and hasn’t been done previously. Other people
+                having worked on the same problem isn’t a bad thing; academic progress is typically an
+                iterative process, with each study providing information that can guide the next. It may
+                be discouraging to find that someone has already explored your great idea, but they most
+                likely left plenty of avenues of investigation still open, and their previous work can be
+                used as justification for your work. To ignore previous studies is to potentially miss out
+                on valuable information. For example, someone may have tried your proposed approach
+                before and found fundamental reasons why it won’t work (and therefore saved you a few
+                years of frustration), or they may have partially solved the problem in a way that you
+                can build on. So, it’s important to do a literature review before you start work; leaving
+                it too late may mean that you are left scrambling to explain why you are covering the
+                same ground or not building on existing knowledge when you come to write a paper." (Page 4)' style="z-index:20000" data-trigger="hover" ></i>
+            </div>
+          </div>
+      </label>
+        <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [0,0,5,5])"  />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+          <div class="todo__text col-md-11">Did you figured out how your model will be deployed?</div>
+          <div class="col-md-1">
+              <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"Why do you want to build an ML model? This is an important question, and the
+              answer should influence the process you use to develop your model. Many academic
+              studies are just that — studies — and not really intended to produce models that will
+              be used in the real world. This is fair enough, since the process of building and analysing
+              models can itself give very useful insights into a problem. However, for many academic
+              studies, the eventual goal is to produce an ML model that can be deployed in a real
+              world situation. If this is the case, then it’s worth thinking early on about how it is
+              going to be deployed. For instance, if it’s going to be deployed in a resource-limited
+              environment, such as a sensor or a robot, this may place limitations on the complexity
+              of the model. If there are time constraints, e.g. a classification of a signal is required
+              within milliseconds, then this also needs to be taken into account when selecting a model.
+              Another consideration is how the model is going to be tied into the broader software
+              system within which it is deployed. This procedure is often far from simple. However,
+              emerging approaches such as ML Ops aim to address some of the difficulties." (Page 5)' style="z-index:20000" data-trigger="hover" ></i>
+            </div>
+          </div>
+      </label>
+  
+  </div>
+
+
+
+
+  <!-- SECOND BOX -->
+  <br><br><br>
+  <div class="title text-center">
+    <h4>2. Build your model in a reliable way...</h4> 
+    <p>"Building models is one of the more enjoyable parts of ML. With modern ML frameworks,
+it’s easy to throw all manner of approaches at your data and see what sticks. However,
+this can lead to a disorganised mess of experiments that’s hard to justify and hard to
+write up. So, it’s important to approach model building in an organised manner, making
+sure you use data correctly, and putting adequate consideration into the choice of models." — Michael A. Lones, <a href="https://arxiv.org/pdf/2108.02497.pdf#page=5">Page 5</a>.</p>
+  </div>
+  <div class="todo-list" id="start-list">
+      <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [10,5,0,0])" />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+              <div class="todo__text col-md-11">Did you make sure that the test data was kept away from the training process?</div> 
+              <div class="col-md-1">
+                <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"It’s essential to have data that you can use to measure how 
+                well your model generalises.
+                A common problem is allowing information about this data to leak into the configuration,
+                training or selection of models. When this happens, the data no longer provides a reliable
+                measure of generality, and this is a common reason why published ML models often fail
+                to generalise to real world data. There are a number of ways that information can
+                leak from a test set. Some of these seem quite innocuous. For instance, during data
+                preparation, using information about the means and ranges of variables within the whole
+                data set to carry out variable scaling — in order to prevent information leakage, this
+                kind of thing should only be done with the training data. Other common examples of
+                information leakage are carrying out feature selection before partitioning the data, and using the
+                same test data to evaluate the generality of multiple models. The best thing you can
+                do to prevent these issues is to partition off a subset of your data right at the start of
+                your project, and only use this independent test set once to measure the generality of
+                a single model at the end of the project." (Page 5)' style="z-index:20000" data-trigger="hover" ></i>
+              </div>
+        </div>
+              
+      </label>
+
+      <label class="todo">
+
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [0,5,10,5])" />
+
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+
+        <div class="row">
+            <div class="todo__text col-md-11">Did you try out a range of different models?</div>
+            <div class="col-md-1">
+              <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"Generally speaking, there’s no such thing as a single best ML model. In fact, there’s
+            a proof of this, in the form of the No Free Lunch theorem, which shows that no ML
+            approach is any better than any other when considered over every possible problem. 
+            So, your job is to find the ML model that works well for your particular
+            problem. There may be some a priori knowledge of this, in the form of good quality
+            research on closely related problems, but most of the time you’re operating in the dark.
+            Fortunately, modern ML libraries in Python, allow you to try
+            out multiple models with only small changes to your code, so there’s no reason not to
+            try out multiple models and find out for yourself which one works best. In the light of
+            No Free Lunch, it’s important to avoid “not invented here syndrome”, i.e. only using
+            models that have been invented at your own institution, since this may cause you to
+            omit the best model for a particular problem." (Page 6)' style="z-index:20000" data-trigger="hover" ></i>
+            </div>
+        </div>
+      </label>
+
+      <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [5,0,0,0])" />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+          <div class="todo__text col-md-11">Did you select only the appropriate models?</div>
+          <div class="col-md-1">
+            <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"By lowering the barrier to implementation, 
+            modern ML libraries also make it easy to
+            apply inappropriate models to your data. Examples of this include applying models that
+            expect categorical features to a data set comprised of numeric features, or attempting to
+            apply a model that assumes no dependencies between variables to time series data. This
+            is particularly something to consider in the light of publication, since reporting results
+            from inappropriate models will give reviewers a bad impression of your work. Another
+            example is using a model that is unnecessarily complex. For instance, a deep neural
+            network is not a good choice if you have limited data, if domain knowledge suggests the
+            underlying pattern is quite simple, or if the model needs to be interpretable. Finally,
+            don’t use recency as a justification for choosing a model: old, established, models often
+            work better than new ones." (Page 6)' style="z-index:20000" data-trigger="hover" ></i>
+          </div>
+        </div>
+      </label>
+
+      <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [0,5,10,0])" />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+          <div class="todo__text col-md-11">Did you optimise your model’s hyperparameters?</div>
+          <div class="col-md-1">
+              <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"Many models have hyperparameters — that is, numbers or settings that affect the
+                configuration of the model. Examples include the kernel function used in an SVM, the
+                number of trees in a random forest, and the architecture of a neural network. Many
+                of these hyperparameters significantly effect the performance of the model, and there
+                is generally no one-size-fits-all. That is, they need to be fitted to your particular data
+                set in order to get the most out of the model. Whilst it may be tempting to fiddle
+                around with hyperparameters until you find something that works, this is not likely
+                to be an optimal approach. It’s much better to use some kind of hyperparameter
+                optimisation strategy, and this is much easier to justify when you write it up. Basic
+                strategies include random search and grid search, but these don’t scale well to large
+                numbers of hyperparameters or to models that are expensive to train, so it’s worth
+                using tools that search for optimal configurations in a more intelligent manner. 
+                It is also possible to use AutoML techniques to optimise
+                both the choice of model and its hyperparameters, in addition to other parts of the data
+                mining pipeline." (Page 6)' style="z-index:20000" data-trigger="hover" ></i>
+            </div>
+          </div>
+      </label>
+
+      <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [5,0,0,0])" />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+          <div class="todo__text col-md-11">Did you carefully conducted the hyperparameters optimization and features selection?</div>
+          <div class="col-md-1">
+              <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"Another common stage of training a model is to carry out 
+              feature selection. However, when carrying out both hyperparameter optimisation
+              and feature selection, it is important to treat them as part of model training, and not
+              something more general that you do before model training. A particularly common
+              error is to do feature selection on the whole data set before model training begins, but
+              this will result in information leaking from the test set into the training process. So,
+              if you optimise the hyperparameters or features used by a model, you should ideally
+              use exactly the same data that you use to train the model. A common technique for
+              doing this is nested cross-validation (also known as double cross-validation), which
+              involves doing hyperparameter optimisation and feature selection as an extra loop inside
+              the main cross-validation loop." (Page 7)' style="z-index:20000" data-trigger="hover" ></i>
+              </div>
+          </div>
+      </label>
+  </div>
+
+
+
+
+  <!-- THIRD BOX -->
+  <br><br><br>
+  <div class="title text-center">
+    <h4>3. Robustly evaluate your model...</h4> 
+    <p>"In order to contribute to progress in your field, you need to have valid results that you
+can draw reliable conclusions from. Unfortunately it’s really easy to evaluate ML models
+unfairly, and, by doing so, muddy the waters of academic progress. So, think carefully
+about how you are going to use data in your experiments, how you are going to measure
+the true performance of your models, and how you are going to report this performance
+in a meaningful and informative way." — Michael A. Lones, <a href="https://arxiv.org/pdf/2108.02497.pdf#page=7">Page 7</a>.</p>
+  </div>
+  <div class="todo-list" id="start-list">
+      <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [10,10,0,5])" />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+              <div class="todo__text col-md-11">Did you use an appropriate test set?</div> 
+              <div class="col-md-1">
+                <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"First of all, 
+                always use a test set to measure the generality of an ML model. How well
+                a model performs on the training set is almost meaningless, and a sufficiently complex
+                model can entirely learn a training set yet capture no generalisable knowledge. It’s also
+                important to make sure the data in the test set is appropriate. That is, it should not
+                overlap with the training set and it should be representative of the wider population. For
+                example, consider a photographic data set of objects where the images in the training
+                and test set were collected outdoors on a sunny day. The presence of the same weather
+                conditions mean that the test set will not be independent, and by not capturing a broader
+                variety of weather conditions, it will also not be representative. Similar situations can
+                occur when a single piece of equipment is used to collect both the training and test data.
+                If the model overlearns characteristics of the equipment, it will likely not generalise to
+                other pieces of equipment, and this will not be detectable by evaluating it on the test
+                set." (Page 7)' style="z-index:20000" data-trigger="hover" ></i>
+              </div>
+        </div>
+              
+      </label>
+
+      <label class="todo">
+
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [5,10,0,0])" />
+
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+
+        <div class="row">
+            <div class="todo__text col-md-11">Did you use a validation set?</div>
+            <div class="col-md-1">
+              <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"It’s not unusual to train multiple models in succession, using knowledge gained about
+              each model’s performance to guide the configuration of the next. When doing this, it’s
+              important not to use the test set within this process. Rather, a separate validation set
+              should be used to measure performance. This contains a set of samples that are not
+              directly used in training, but which are used to guide training. If you use the test set
+              for this purpose, then the test set will become an implicit part of the training process,
+              and will no longer be able to serve as an independent measure of generality, i.e. your
+              models will progressively overfit the test set. Another benefit
+              of having a validation set is that you can do early stopping, where, during the training
+              of a single model, the model is measured against the validation set at each iteration of
+              the training process. Training is then stopped when the validation score starts to fall,
+              since this indicates that the model is starting to overfit the training data." (Page 8)
+              ' style="z-index:20000" data-trigger="hover" ></i>
+            </div>
+        </div>
+      </label>
+
+      <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [5,5,5,0])"  />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+          <div class="todo__text col-md-11">Did you evaluate the model multiple times?</div>
+          <div class="col-md-1">
+            <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"Many ML models are unstable. That is, if you train them multiple times, or if you
+              make small changes to the training data, then their performance varies significantly.
+              This means that a single evaluation of a model can be unreliable, and may either underestimate or overestimate the model’s true potential. For this reason, it is common to
+              carry out multiple evaluations. There are numerous ways of doing this, and most involve
+              training the model multiple times using different subsets of the training data. Cross-validation (CV) is particularly popular, and comes in numerous varieties. 
+              Ten-fold CV, where training is repeated ten times, is arguably the standard, but
+              you can add more rigour by using repeated CV, where the whole CV process is repeated
+              multiple times with different partitionings of the data. If some of your data classes are
+              small, it’s important to do stratification, which ensures each class is adequately represented in each fold. It is common to report the mean and standard deviation of the
+              multiple evaluations, but it is also advisable to keep a record of the individual scores in
+              case you later use a statistical test to compare models." (Page 8)' style="z-index:20000" data-trigger="hover" ></i>
+          </div>
+        </div>
+      </label>
+
+      <label class="todo">
+        <input class="todo__state" type="checkbox" onchange="updateBars(this, [5,0,10,0])"  />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+          <div class="todo__text col-md-11">Did you save some data to evaluate your final model instance?</div>
+          <div class="col-md-1">
+              <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"I’ve used the term model quite loosely, but there is an important distinction between
+              evaluating the potential of a general model (e.g. how well a neural network can solve
+              your problem), and the performance of a particular model instance (e.g. a specific neural
+              network produced by one run of back-propagation). Cross-validation is good at the
+              former, but it’s less useful for the latter. Say, for instance, that you carried out ten-fold
+              cross-validation. This would result in ten model instances. Say you then select the
+              instance with the highest test fold score as the model which you will use in practice.
+              How do you report its performance? Well, you might think that its test fold score is
+              a reliable measure of its performance, but it probably isn’t. First, the amount of data
+              in a single fold is relatively small. Second, the instance with the highest score could
+              well be the one with the easiest test fold, so the evaluation data it contains may not
+              be representative. Consequently, the only way of getting a reliable estimate of a model
+              instance’s generality may be to use another test set. So, if you have enough data, it’s
+              better to keep some aside and only use it once to provide an unbiased estimate of the
+              final selected model instance" (Page 8)' style="z-index:20000" data-trigger="hover" ></i>
+            </div>
+          </div>
+      </label>
+      <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [0,5,0,10])"  />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+          <div class="todo__text col-md-11">Did you use a suited evaluation metric?</div>
+          <div class="col-md-1">
+              <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"Finally, be careful which metrics
+                 you use to evaluate your ML models. For instance, in
+                the case of classification models, the most commonly used metric is accuracy, which is
+                the proportion of samples in the data set that were correctly classified by the model.
+                This works fine if your classes are balanced, i.e. if each class is represented by a similar
+                number of samples within the data set. But many data sets are not balanced, and
+                in this case accuracy can be a very misleading metric. Consider, for example, a data
+                set in which 90% of the samples represent one class, and 10% of the samples represent
+                another class. A binary classifier which always outputs the first class, regardless of its
+                input, would have an accuracy of 90%, despite being completely useless. In this kind of
+                situation, it would be preferable to use a metric such as Cohen’s kappa coefficient (κ)
+                or Matthews Correlation Coefficient (MCC), both of which are relatively insensitive to
+                class size imbalance." (Page 9)' style="z-index:20000" data-trigger="hover" ></i>
+            </div>
+          </div>
+      </label>
+  </div>
+
+
+
+
+
+  <!-- FOURTH BOX -->
+  <br><br><br>
+  <div class="title text-center">
+    <h4>4. Compare your models fairly...</h4> 
+    <p>"Comparing models is the basis of academic research, but it’s surprisingly difficult to get
+it right. If you carry out a comparison unfairly, and publish it, then other researchers
+may subsequently be led astray. So, do make sure that you evaluate different models
+within the same context, do explore multiple perspectives, and do use make correct use
+of statistical tests." — Michael A. Lones, <a href="https://arxiv.org/pdf/2108.02497.pdf#page=9">Page 9</a>. </p>
+  </div>
+  <div class="todo-list" id="start-list">
+      <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [0,5,0,5])"  />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+              <div class="todo__text col-md-11">Did you use statistical tests during models comparison?</div> 
+              <div class="col-md-1">
+                <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"If you want to convince people 
+                that your model is better than someone else’s, then
+                a statistical test is a very useful tool. Broadly speaking, there are two categories of
+                tests for comparing individual ML models. The first is used to compare individual
+                model instances, e.g. two trained decision trees. For example, McNemar’s test is a fairly
+                common choice for comparing two classifiers, and works by comparing the classifiers’
+                output labels for each sample in the test set (so do remember to record these). The second
+                category of tests are used to compare two models more generally, e.g. whether a decision
+                tree or a neural network is a better fit for the data. These require multiple evaluations
+                of each model, which you can get by using cross-validation or repeated resampling (or,
+                if your training algorithm is stochastic, multiple repeats using the same data). The test
+                then compares the two resulting distributions. Student’s T test is a common choice
+                for this kind of comparison, but it’s only reliable when the distributions are normally
+                distributed, which is often not the case. A safer bet is Mann-Whitney’s U test, since this
+                does not assume that the distributions are normal." (Page 10)' style="z-index:20000" data-trigger="hover" ></i>
+              </div>
+        </div>
+              
+      </label>
+
+      <label class="todo">
+
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [5,0,5,5])" />
+
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+
+        <div class="row">
+            <div class="todo__text col-md-11">Did you performed multiple comparisons correctly?</div>
+            <div class="col-md-1">
+              <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"Things get a 
+                bit more complicated when you want to use statistical tests to compare
+                more than two models, since doing multiple pairwise tests is a bit like using the test
+                set multiple times — it can lead to overly-optimistic interpretations of significance.
+                Basically, each time you carry out a comparison between two models using a statistical
+                test, there’s a probability that it will discover significant differences where there aren’t
+                any. This is represented by the confidence level of the test, usually set at 95%: meaning
+                that 1 in 20 times it will give you a false positive. For a single comparison, this may be
+                a level of uncertainty you can live with. However, it accumulates. That is, if you do 20
+                pairwise tests with a confidence level of 95%, one of them is likely to give you the wrong
+                answer. This is known as the multiplicity effect, and is an example of a broader issue
+                in data science known as data dredging or p-hacking. To
+                address this problem, you can apply a correction for multiple tests. The most common
+                approach is the Bonferroni correction, a very simple method that lowers the significance
+                threshold based on the number of tests that are being carried out. However, there are numerous other approaches, and there
+                is also some debate about when and where these corrections should be applied." (Page 11)' style="z-index:20000" data-trigger="hover" ></i>
+              </div>
+        </div>
+      </label>
+
+      <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [5,0,0,10])" />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+          <div class="todo__text col-md-11">Did you verified the reliability of community benchmarks?</div>
+          <div class="col-md-1">
+            <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"In certain problem domains, it has become commonplace to use benchmark data sets to
+              evaluate new ML models. The idea is that, because everyone is using the same data to
+              train and test their models, then comparisons will be more transparent. Unfortunately
+              this approach has some major drawbacks. First, if access to the test set is unrestricted,
+              then you can’t assume that people haven’t used it as part of the training process. This
+              is known as “developing to the test set”, and leads to results that are heavily overoptimistic. A more subtle problem is that, even if everyone who uses the data only uses
+              the test set once, collectively the test set is being used many times by the community.
+              In effect, by comparing lots of models on the same test set, it becomes increasingly
+              likely that the best model just happens to over-fit the test set, and doesn’t necessarily
+              generalise any better than the other models.
+              For these, and other reasons, you should be careful how much you read into results
+              from a benchmark data set, and don’t assume that a small increase in performance is
+              significant." (Page 11)' style="z-index:20000" data-trigger="hover" ></i>
+          </div>
+        </div>
+      </label>
+
+      <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [0,5,10,0])" />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+          <div class="todo__text col-md-11">Did you considered combinations of models?</div>
+          <div class="col-md-1">
+              <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"ML is not
+                always about choosing between different models. Often it makes sense to use combinations of models. Different ML models explore different trade-offs; by combing them,
+                you can sometimes compensate for the weaknesses of one model by using the strengths
+                of another model, and vice versa. Such composite models are known as ensembles,
+                and the process of generating them is known as ensemble learning. There are lots
+                of ensemble learning approaches. However, they
+                can be roughly divided into those that form ensembles out of the same base model type,
+                e.g. an ensemble of decision trees, and those that combine different kinds of ML models,
+                e.g. a combination of a decision tree, an SVM, and a deep neural network. The first
+                category includes many classic approaches, such as bagging and boosting. Ensembles
+                can either be formed from existing trained models, or the base models can be trained as
+                part of the process, typically with the aim of creating a diverse selection of models that
+                make mistakes on different parts of the data space. A general consideration in ensemble
+                learning is how to combine the different base models; approaches to this vary from very
+                simple methods such as voting, to more complex approaches that use another ML model
+                to aggregate the outputs of the base models. This latter approach is often referred to as
+                stacking or stacked generalisation." (Page 11)
+                ' style="z-index:20000" data-trigger="hover" ></i>
+            </div>
+          </div>
+      </label>
+  </div>
+
+
+
+
+
+
+
+
+  <!-- FIFTH BOX -->
+  <br><br><br>
+  <div class="title text-center">
+    <h4>5. Report your results correctly...</h4> 
+    <p>"The aim of academic research is not self-aggrandisement, but rather an opportunity to
+      contribute to knowledge. In order to effectively contribute to knowledge, you need to
+      provide a complete picture of your work, covering both what worked and what didn’t.
+      ML is often about trade-offs — it’s very rare that one model is better than another
+      in every way that matters — and you should try to reflect this with a nuanced and
+      considered approach to reporting results and conclusions." — Michael A. Lones, <a href="https://arxiv.org/pdf/2108.02497.pdf#page=12">Page 12</a>.</p>
+  </div>
+  <div class="todo-list" id="start-list">
+      <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [5,0,0,10])" />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+              <div class="todo__text col-md-11">Have you been completely transparent?</div> 
+              <div class="col-md-1">
+                <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"Always try to be transparent about what you’ve done, and what you’ve
+                  discovered, since this will make it easier for other people to build upon your work. In
+                  particular, it’s good practice to share your models in an accessible way. For instance,
+                  if you used a script to implement all your experiments, then share the script when you
+                  publish the results. This means that other people can easily repeat your experiments,
+                  which adds confidence to your work. It also makes it a lot easier for people to compare
+                  models, since they no longer have to reimplement everything from scratch in order to
+                  ensure a fair comparison. Knowing that you will be sharing your work also encourages
+                  you to be more careful, document your experiments well, and write clean code, which
+                  benefits you as much as anyone else. It’s also worth noting that issues surrounding
+                  reproducibility are gaining prominence in the ML community, so in the future you may
+                  not be able to publish work unless your workflow is adequately documented and shared." (Page 12)' style="z-index:20000" data-trigger="hover" ></i>
+              </div>
+        </div>
+              
+      </label>
+
+      <label class="todo">
+
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [5,5,10,10])" />
+
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+
+        <div class="row">
+            <div class="todo__text col-md-11">Did you report the results in different ways?</div>
+            <div class="col-md-1">
+              <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"One way to achieve better rigour when evaluating and comparing models is to use multiple data sets.
+               This helps to overcome any deficiencies associated with individual data
+                sets and allows you to
+                present a more complete picture of your model’s performance. It’s also good practice
+                to report multiple metrics for each data set, since different metrics can present different
+                perspectives on the results, and increase the transparency of your work. For example, if
+                you use accuracy, it’s also a good idea to include metrics that are less sensitive to class
+                imbalances. If you use a partial metric like precision, recall, sensitivity or specificity, also include a metric that gives a more
+                complete picture of your model’s error rates. And make sure it’s clear which metrics
+                you are using. For instance, if you report F-scores, be clear whether this is F1, or some
+                other balance between precision and recall. If you report AUC, indicate whether this is
+                the area under the ROC curve or the PR curve." (Page 12)' style="z-index:20000" data-trigger="hover" ></i>
+            </div>
+        </div>
+      </label>
+
+      <label class="todo">
+        <input class="todo__state" type="checkbox" onchange="updateBars(this, [5,10,5,10])"  />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+          <div class="todo__text col-md-11">Did you avoid coming to conclusions based solely on your dataset?</div>
+          <div class="col-md-1">
+            <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"It’s important not to present invalid conclusions, since this can lead other researchers
+              astray. A common mistake is to make general statements that are not supported by the
+              data used to train and evaluate models. For instance, if your model does really well on
+              one data set, this does not mean that it will do well on other data sets. Whilst you
+              can get more robust insights by using multiple data sets, there will always be a limit to what you can infer from any experimental
+              study. There are numerous reasons for this, many of which
+              are to do with how datasets are curated. One common issue is bias, or sampling error:
+              that the data is not sufficiently representative of the real world. Another is overlap:
+              multiple data sets may not be independent, and may have similar biases. There’s also
+              the issue of quality: and this is a particular issue in deep learning datasets, where the
+              need for quantity of data limits the amount of quality checking that can be done. So, in
+              short, don’t overplay your findings, and be aware of their limitations." (Page 13)
+              ' style="z-index:20000" data-trigger="hover" ></i>
+          </div>
+        </div>
+      </label>
+
+      <label class="todo">
+        <input class="todo__state" type="checkbox"  onchange="updateBars(this, [0,5,10,10])" />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" class="todo__icon">
+          <use xlink:href="#todo__line" class="todo__line"></use>
+          <use xlink:href="#todo__box" class="todo__box"></use>
+          <use xlink:href="#todo__check" class="todo__check"></use>
+          <use xlink:href="#todo__circle" class="todo__circle"></use>
+        </svg>
+        <div class="row">
+          <div class="todo__text col-md-11">Did you analyse your model well providing interesting insights?</div>
+          <div class="col-md-1">
+              <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title='"Trained models contain a lot of useful
+              information. Unfortunately many authors just
+              report the performance metrics of a trained model, without giving any insight into what
+              it actually learnt. Remember that the aim of research is not to get a slightly higher
+              accuracy than everyone else. Rather, it’s to generate knowledge and understanding and
+              share this with the research community. If you can do this, then you’re much more likely
+              to get a decent publication out of your work. So, do look inside your models and do
+              try to understand how they reach a decision. For relatively simple models like decision
+              trees, it can also be beneficial to provide visualisations of your models, and most libraries
+              have functions that will do this for you. For complex models, like deep neural networks,
+              consider using explainable AI (XAI) techniques to extract knowledge; 
+              they’re unlikely to tell you exactly what the model is doing, but they may
+              give you some useful insights." (Page 13)' style="z-index:20000" data-trigger="hover" ></i>
+            </div>
+          </div>
+      </label>
+  </div>
+  <br><br><br>
+</div>
+  <div class="col-md-4" style="margin-top: -3em">
+    <div class="container" id="progress-container">
+        <div class="row">
+            <div class="col-md-4">
+                <h5 data-toggle="tooltip" data-placement="top" title="There are many aspects to keep in mind when conducting Machine Learning 
+                research that can help limit the possibility of error. Robustness is considered here as a measure of how many of these warnings 
+                were pressed and is therefore inversely proportional to the possibility of errors being made within the research." data-trigger="hover" >Robustness</h5>
+                <div class="progress">
+                    <div class="progress-bar" style="width:0%;" id="robustness">
+                        <div class="progress-value" id="robustness-label">0%</div>
+                    </div>
+                </div>
+    
+                <h5 data-toggle="tooltip" data-placement="top" title="Over the years, many different ways of conducting their experiments 
+                have been established which guarantee the rigorousness of the process carried out. 
+                Rigorousness measures how well these good practices have been followed." data-trigger="hover" >Rigorousness</h5>
+                <div class="progress">
+                    <div class="progress-bar" style="width:0%;" id="rigorousness">
+                        <div class="progress-value" id="rigorousness-label">0%</div>
+                    </div>
+                </div>
+                
+                <h5 data-toggle="tooltip" data-placement="top" title="Good research is also comprehensive, exhaustive and full of observations
+                 and insights.
+                 Completeness in this case measures how thoroughly the research has been conducted." data-trigger="hover" >Completeness</h5>
+                <div class="progress">
+                    <div class="progress-bar" style="width:0%;" id="completeness">
+                        <div class="progress-value" id="completeness-label">0%</div>
+                    </div>
+                </div>
+
+                
+                <h5 data-toggle="tooltip" data-placement="top" title="When publishing research it is necessary to
+                 carry it out in such a way that it can be compared with others and, if already present, to accompany
+                  it with comparisons of the work of others.
+                 Comparability in this case indicates how well the research meets these requirements." data-trigger="hover" >Comparability</h5>
+                <div class="progress">
+                    <div class="progress-bar" style="width:0%;" id="comparability">
+                        <div class="progress-value" id="comparability-label">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  <script>
+    bars = [0,0,0,0];
+    function updateBars(checkbox, values){
+      if(checkbox.checked) {
+        bars[0] += values[0]
+        $("#robustness").width(bars[0] + "%")
+        $("#robustness-label").text(bars[0] + "%")
+        
+        bars[1] += values[1]
+        $("#rigorousness").width(bars[1] + "%")
+        $("#rigorousness-label").text(bars[1] + "%")
+
+        
+        bars[2] += values[2]
+        $("#completeness").width(bars[2] + "%")
+        $("#completeness-label").text(bars[2] + "%")
+
+        
+        bars[3] += values[3]
+        $("#comparability").width(bars[3] + "%")
+        $("#comparability-label").text(bars[3] + "%")
+      }else{
+        
+        bars[0] -= values[0]
+        $("#robustness").width(bars[0] + "%")
+        $("#robustness-label").text(bars[0] + "%")
+
+        bars[1] -= values[1]
+        $("#rigorousness").width(bars[1] + "%")
+        $("#rigorousness-label").text(bars[1] + "%")
+
+        
+        bars[2] -= values[2]
+        $("#completeness").width(bars[2] + "%")
+        $("#completeness-label").text(bars[2] + "%")
+
+        
+        bars[3] -= values[3]
+        $("#comparability").width(bars[3] + "%")
+        $("#comparability-label").text(bars[3] + "%")
+      }
+    }
+  </script>
+  <footer>
+    <p>Website designed and developed by <a href="https://www.linkedin.com/in/davide-coccomini/">Davide Coccomini</a> | Style based on works by <a href="https://codepen.io/shshaw">shshaw</a> | Contents by Michael A. Lones and based on "<a href="https://arxiv.org/abs/2108.02497">How to avoid machine learning pitfalls: a guide for academic researchers, arXiv:2108.02497, v1, August 2021</a>". </p>
+  </footer>
+</body>
+</html>
